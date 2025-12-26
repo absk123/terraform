@@ -1,5 +1,5 @@
 variable "subscription_id" {
-    default = {} 
+
 }    
     
 variable "rg" {
