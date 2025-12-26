@@ -1,18 +1,55 @@
-resource "azurerm_resource_group" "example" {
-  name     = "example"
-  location = "West Europe"
-}
-
-
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
-      version = "4.13.0"
+      source  = "hashicorp/azurerm"
+      version = "4.57.0"
     }
   }
 }
-
 provider "azurerm" {
-  # Configuration options
+  features {}
+  subscription_id = "98473d5b-c639-404e-9bf2-91559fe65ff8"
+}
+
+
+module "RG" {
+  source = "git::https://github.com/absk123/resource_group.git//azure_resource_group?ref=main"
+  rg     = var.rg
+}
+
+
+module "SA" {
+  source = "git::ssh://git@github.com/absk123/storage_account.git//azure_storage_account?ref=main"
+  sa     = var.sa
+  gg     = module.RG.Resource_Group
+}
+
+module "VNET" {
+  source = "git::ssh://git@github.com/absk123/virtual_network.git//azure_virtual_network?ref=main"
+  nets   = var.nets
+  rg     = var.rg
+}
+
+module "WEB" {
+  source = "git::ssh://git@github.com/absk123/app_service.git//azure_app_service?ref=main"
+  web    = var.web
+  rg     = module.RG.Resource_Group
+}
+
+module "AKS" {
+  source = "git::ssh://git@github.com/absk123/aks_cluster.git//azure_aks_cluster?ref=main"
+  aks    = var.aks
+  rg     = module.RG.Resource_Group
+}
+
+module "DB" {
+  source = "git::ssh://git@github.com/absk123/data_base.git//azure_data_base?ref=main"
+  db     = var.db
+  rg     = module.RG.Resource_Group
+}
+
+module "PIP" {
+  source = "git::ssh://git@github.com/absk123/public_ip.git//azure_public_ip?ref=main"
+  pip    = var.pip
+  rg     = module.RG.Resource_Group
 }
