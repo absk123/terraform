@@ -42,13 +42,13 @@ output "AKS_Cluster_ID" {
 
 output "DB_Server_ID" {
   value = {
-    for k, v in module.SQL.DB_Server : k => v.id
+    for k, v in module.DB.DB_Server : k => v.id
   }
 }
 
 output "Data_Base_ID" {
   value = {
-    for k, v in module.SQL.Data_Base : k => v.id
+    for k, v in module.DB.Data_Base : k => v.id
   }
 }
 
@@ -57,3 +57,9 @@ output "Public_IP_ID" {
     for k, v in module.PIP.Public_IP : k => v.id
   }
 }
+
+# output "Application_Gatewau_ID" {
+#   value = {
+#     for k, v in module.AGW.Application_Gateway : k => v.id
+#   }
+# }

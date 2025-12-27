@@ -1,7 +1,7 @@
 variable "subscription_id" {
 
-}    
-    
+}
+
 variable "rg" {
 
 }
@@ -27,5 +27,9 @@ variable "db" {
 }
 
 variable "pip" {
+
+}
+
+variable "agw" {
 
 }
